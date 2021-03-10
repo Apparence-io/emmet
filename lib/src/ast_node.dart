@@ -1,0 +1,25 @@
+import 'package:analyzer/dart/ast/ast.dart';
+
+import 'models/test_file.dart';
+
+extension MethodExt on MethodInvocation {
+
+  List<SimpleStringLiteral> get arguments => argumentList.arguments.cast<SimpleStringLiteral>();
+
+  bool get isWidgetTest => methodName.name == "testWidgets";
+
+  bool get isDartTest => methodName.name == "test";
+
+  bool get isExpectation => methodName.name == "expect";
+
+  bool get isTest => isWidgetTest || isDartTest;
+
+  TestType get testType {
+    if(isWidgetTest) {
+      return TestType.WIDGET;
+    } else if (isDartTest) {
+      return TestType.DART;
+    }
+    throw "NOT A TEST";
+  }
+}
