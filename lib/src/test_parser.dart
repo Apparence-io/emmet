@@ -31,18 +31,11 @@ class TestParser {
     for(final node in rootUnit.childEntities) {
       if(node is MethodInvocation) {
         if(node.isTest) {
-          var testMethod = TestMethod(
-            name: node.arguments.first.stringValue,
-            type: node.testType,
-            assertions: []
-          );
+          var testMethod = TestMethod.fromNode(node);
           testFile.tests.add(testMethod);
           _parseNode(node, testFile, testMethod: testMethod);
         } else if (node.isExpectation && testMethod != null) {
-          testMethod.assertions.add(AssertionCall(
-            expectedExpr: node.argumentList.arguments.first.toString(),
-            actualExpr: node.argumentList.arguments[1].toString()
-          ));
+          testMethod.assertions.add(AssertionCall.fromNode(node));
         }
       } else if(node is AstNode) {
         _parseNode(node, testFile, testMethod: testMethod);

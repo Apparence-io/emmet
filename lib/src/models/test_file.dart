@@ -1,3 +1,6 @@
+import 'package:analyzer/dart/ast/ast.dart';
+import '../ast_node.dart';
+
 class TestFile {
   String path;
   List<TestMethod> tests;
@@ -12,23 +15,26 @@ class TestMethod {
 
   TestMethod({this.name, this.type, this.assertions});
 
-  factory TestMethod.widget({String name}) => TestMethod(
-    name: name,
-    type: TestType.WIDGET
-  );
-
-  factory TestMethod.dart({String name}) => TestMethod(
-    name: name,
-    type: TestType.DART
-  );
+  factory TestMethod.fromNode(MethodInvocation node) 
+    => TestMethod(
+      name: node.arguments.first.stringValue,
+      type: node.testType,
+      assertions: []
+    );
 }
 
 class AssertionCall {
   String reason;
   String expectedExpr;
   String actualExpr;
-  
+
   AssertionCall({this.reason, this.expectedExpr, this.actualExpr});
+
+  factory AssertionCall.fromNode(MethodInvocation node) 
+    => AssertionCall(
+      expectedExpr: node.argumentList.arguments.first.toString(),
+      actualExpr: node.argumentList.arguments[1].toString()
+    );
 }
 
 enum TestType {
