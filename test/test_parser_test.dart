@@ -1,7 +1,6 @@
 import 'package:emmet/src/models/test_file.dart';
 import 'package:emmet/src/test_parser.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:emmet/emmet.dart';
+import 'package:test/test.dart';
 
 void main() {
 
