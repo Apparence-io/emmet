@@ -35,7 +35,7 @@ class HtmlTestFileTemplate {
   String get body => '''
     <body>
       <div class="container">
-        <h1 class="mt-4 mb-2">${testFile.path}</h1>
+        <h1 class="mt-5 mb-4">${testFile.path}</h1>
         ${genTable()}
       </div>
       $footer
@@ -103,7 +103,7 @@ class HtmlIndexFileTemplate {
   String get _body => '''
     <body>
       <div class="container">
-        <h1 class="mt-4 mb-2">$projectName documentation from tests</h1>
+        <h1 class="mt-5 mb-4">$projectName documentation from tests</h1>
         ${_genIndexList()}
       </div>
       <!-- Optional JavaScript -->
