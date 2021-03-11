@@ -5,7 +5,7 @@ class HtmlTestFileTemplate {
   TestFile testFile;
 
   HtmlTestFileTemplate({
-    required this.testFile
+    this.testFile
   });
 
   String generateFile() 
@@ -74,8 +74,8 @@ class HtmlIndexFileTemplate {
   final List<TestFile> testFiles;
 
   HtmlIndexFileTemplate({
-    required this.projectName,
-    required this.testFiles
+    this.projectName,
+    this.testFiles
   });
 
   String generateFile() 
@@ -133,7 +133,7 @@ abstract class HtmlElement {
   final String tagEnd;
   final String content;
 
-  HtmlElement({required this.tagStart, required this.tagEnd, required this.content});
+  HtmlElement({this.tagStart, this.tagEnd, this.content});
 
   String generate() => 
     '''
@@ -145,7 +145,7 @@ abstract class HtmlElement {
 
 class HtmlSingleElement extends HtmlElement {
   
-  HtmlSingleElement({required String tagStart, required String tagEnd, required HtmlElement child}): super(
+  HtmlSingleElement({String tagStart, String tagEnd, HtmlElement child}): super(
     tagStart: tagStart,
     tagEnd: tagEnd,
     content: child.generate()
@@ -154,7 +154,7 @@ class HtmlSingleElement extends HtmlElement {
 
 class HtmlMultElements extends HtmlElement {
   
-  HtmlMultElements({required String tagStart, required String tagEnd, required List<HtmlElement> children}): super(
+  HtmlMultElements({String tagStart, String tagEnd, List<HtmlElement> children}): super(
     tagStart: tagStart,
     tagEnd: tagEnd,
     content: children
@@ -164,7 +164,7 @@ class HtmlMultElements extends HtmlElement {
 }
 
 class Table extends HtmlMultElements {
-  Table({required List<HtmlElement> children}): super(
+  Table({List<HtmlElement> children}): super(
     tagStart: '''<table class="table table-hover mt-4">''',
     tagEnd: '''</table>''',
     children: children
@@ -172,7 +172,7 @@ class Table extends HtmlMultElements {
 }
 
 class TableHead extends HtmlMultElements {
-  TableHead({required List<HtmlElement> children}): super(
+  TableHead({List<HtmlElement> children}): super(
     tagStart: '''<thead>''',
     tagEnd: '''</thead>''',
     children: children
@@ -180,7 +180,7 @@ class TableHead extends HtmlMultElements {
 }
 
 class TableHeaderLine extends HtmlElement {
-  TableHeaderLine({required String child}): super(
+  TableHeaderLine({String child}): super(
     tagStart: '''<th scope="col">''',
     tagEnd: '''</th>''',
     content: child
@@ -188,7 +188,7 @@ class TableHeaderLine extends HtmlElement {
 }
 
 class TableBody extends HtmlMultElements {
-  TableBody({required List<HtmlElement> children}): super(
+  TableBody({List<HtmlElement> children}): super(
     tagStart: '''<tbody>''',
     tagEnd: '''</tbody>''',
     children: children
@@ -196,7 +196,7 @@ class TableBody extends HtmlMultElements {
 }
 
 class TableRow extends HtmlMultElements {
-  TableRow({required List<HtmlElement> children}): super(
+  TableRow({List<HtmlElement> children}): super(
     tagStart: '''<tr>''',
     tagEnd: '''</tr>''',
     children: children
@@ -204,7 +204,7 @@ class TableRow extends HtmlMultElements {
 }
 
 class TableCell extends HtmlElement {
-  TableCell({required String child}): super(
+  TableCell({String child}): super(
     tagStart: '''<td>''',
     tagEnd: '''</td>''',
     content: child
@@ -212,7 +212,7 @@ class TableCell extends HtmlElement {
 }
 
 class ListGroup extends HtmlMultElements {
-  ListGroup({required List<HtmlElement> children}): super(
+  ListGroup({List<HtmlElement> children}): super(
     tagStart: '''<ul class="list-group">''',
     tagEnd: '''</ul>''',
     children: children
@@ -220,7 +220,7 @@ class ListGroup extends HtmlMultElements {
 }
 
 class ListGroupItem extends HtmlMultElements {
-  ListGroupItem({required List<HtmlElement> children}): super(
+  ListGroupItem({List<HtmlElement> children}): super(
     tagStart: '''<li class="list-group-item d-flex justify-content-between align-items-center">''',
     tagEnd: '''</li>''',
     children: children
@@ -228,7 +228,7 @@ class ListGroupItem extends HtmlMultElements {
 }
 
 class ListGroupItemText extends HtmlElement {
-  ListGroupItemText({required String child}): super(
+  ListGroupItemText({String child}): super(
     tagStart: '''<span>''',
     tagEnd: '''</span>''',
     content: child
@@ -236,7 +236,7 @@ class ListGroupItemText extends HtmlElement {
 }
 
 class ListGroupItemTag extends HtmlElement {
-  ListGroupItemTag({required String child}): super(
+  ListGroupItemTag({String child}): super(
     tagStart: '''<span class="badge badge-primary badge-pill">''',
     tagEnd: '''</span>''',
     content: child
@@ -244,7 +244,7 @@ class ListGroupItemTag extends HtmlElement {
 }
 
 class Link extends HtmlSingleElement {
-  Link({required HtmlElement child, required String link}): super(
+  Link({HtmlElement child, String link}): super(
     tagStart: '''<a href="$link">''',
     tagEnd: '''</a>''',
     child: child

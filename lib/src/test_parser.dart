@@ -24,7 +24,7 @@ class TestParser {
     return testFile;
   }
   
-  _parseNode(AstNode? rootUnit, TestFile testFile, {TestMethod? testMethod}) {
+  _parseNode(AstNode rootUnit, TestFile testFile, {TestMethod testMethod}) {
     if(rootUnit == null) {
       return;
     }
