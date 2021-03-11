@@ -30,7 +30,7 @@ void main() {
           await tester.tap(textMode);
           await tester.pumpAndSettle();
         });
-        
+
         test('a dart side test',
         () async {
           await beforeEach(tester);
@@ -59,5 +59,32 @@ void main() {
     expect(res.tests[2].name, equals('a dart side test'));
     expect(TestType.DART, res.tests[2].type);
     expect(3, res.tests[2].assertions.length);
+  });
+
+  test('''
+      A test file containing test in a group is parsed,
+      => returns a TestFile with 3 tests
+    ''', () {
+    var testFileString = r'''
+      void main() {
+        group('[EditorHelperService] - save simpleHelper', () {
+          setUp(() => reset(httpClientMock));
+
+          test('page = "route", version = "1.0.1", helper not exists => page exists, version exists, helper saved', () async {
+            await _testCreateHelper(args, expectedHelperResult, () => editorHelperService.saveSimpleHelper(args));
+          });
+
+          test('page = "route", version min and max = "1.0.1", helper not exists => page is created, version is created, new helper saved', () async {
+            await _testCreateHelperWithVersionAndPage(args, expectedHelperResult, () => editorHelperService.saveSimpleHelper(args));
+          });
+
+          test('page = "route", version = "1.0.1", helper exists => page exists, version exists, helper updated', () async {
+            await _testUpdateHelper(args, expectedHelperResult, () => editorHelperService.saveSimpleHelper(args));
+          });
+        });
+      }
+    ''';
+    var res = parser.parse(testFileString);
+    expect(res.tests.length, equals(3));
   });
 }

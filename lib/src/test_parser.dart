@@ -36,6 +36,8 @@ class TestParser {
           _parseNode(node, testFile, testMethod: testMethod);
         } else if (node.isExpectation && testMethod != null) {
           testMethod.assertions.add(AssertionCall.fromNode(node));
+        } else if (node.isGroup) {
+          _parseNode(node, testFile, testMethod: testMethod);
         }
       } else if(node is AstNode) {
         _parseNode(node, testFile, testMethod: testMethod);

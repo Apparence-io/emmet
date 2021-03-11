@@ -57,12 +57,14 @@ class HtmlTestFileTemplate {
         ] 
       ),
       TableBody(
-        children: testFile.tests.map((test) => TableRow( 
+        children: (testFile != null && testFile.tests != null)
+          ? testFile.tests.map((test) => TableRow( 
             children: [
               TableCell(child: test.name ?? ''),
               TableCell(child: '${test.assertions.length}')
             ]
           )).toList()
+          : []
       )
     ]).generate();
 }

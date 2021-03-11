@@ -4,13 +4,17 @@ import 'models/test_file.dart';
 
 extension MethodExt on MethodInvocation {
 
-  List<SimpleStringLiteral> get arguments => argumentList.arguments.cast<SimpleStringLiteral>();
+  List<String> get arguments 
+    => argumentList.arguments.whereType<SimpleStringLiteral>()
+          .map((e) => e.stringValue);
 
   bool get isWidgetTest => methodName.name == "testWidgets";
 
   bool get isDartTest => methodName.name == "test";
 
   bool get isExpectation => methodName.name == "expect";
+
+  bool get isGroup => methodName.name == "group";
 
   bool get isTest => isWidgetTest || isDartTest;
 

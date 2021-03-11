@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
-
-* TODO: Describe initial release.
+## [0.0.1] - First version
+* Parse test and list test from files
+* Parse assertions
