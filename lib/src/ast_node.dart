@@ -6,7 +6,8 @@ extension MethodExt on MethodInvocation {
 
   List<String> get arguments 
     => argumentList.arguments.whereType<SimpleStringLiteral>()
-          .map((e) => e.stringValue);
+          .map((e) => e.stringValue)
+          .toList();
 
   bool get isWidgetTest => methodName.name == "testWidgets";
 

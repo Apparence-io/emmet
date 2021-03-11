@@ -17,7 +17,7 @@ class TestMethod {
 
   factory TestMethod.fromNode(MethodInvocation node) 
     => TestMethod(
-      name: node.arguments.first.stringValue,
+      name: node.arguments.isNotEmpty ? node.arguments.first : 'Undefined',
       type: node.testType,
       assertions: []
     );

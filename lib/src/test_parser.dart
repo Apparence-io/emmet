@@ -52,7 +52,7 @@ class TestParser {
     var contents = dir.listSync(recursive: true);
     List<TestFile> results = [];
     for (var fileOrDir in contents) {
-      if (fileOrDir is File) {
+      if (fileOrDir is File && fileOrDir.path.endsWith('test.dart')) {
         results.add(
           parse(fileOrDir.readAsStringSync())
             ..path = fileOrDir.path

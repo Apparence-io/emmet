@@ -159,9 +159,11 @@ class HtmlMultElements extends HtmlElement {
   HtmlMultElements({String tagStart, String tagEnd, List<HtmlElement> children}): super(
     tagStart: tagStart,
     tagEnd: tagEnd,
-    content: children
-      .map<String>((elements) => elements.generate())
-      .reduce((value, element) => value + element)
+    content: children != null 
+      ? children
+        .map<String>((elements) => elements.generate())
+        .fold('', (value, element) => '$value $element')
+      : ''
   );
 }
 
