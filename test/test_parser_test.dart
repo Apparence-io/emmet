@@ -30,6 +30,7 @@ void main() {
           await tester.tap(textMode);
           await tester.pumpAndSettle();
         });
+        
         test('a dart side test',
         () async {
           await beforeEach(tester);

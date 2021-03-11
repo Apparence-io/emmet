@@ -8,12 +8,12 @@ import 'models/test_file.dart';
 
 class TestParser {
 
-  List<TestFile> parseFolder(String path) {
-    throw "not implemented";
-  }
+  List<TestFile> parseFolder(String path) => _dirContents(Directory(path));
 
   TestFile parseSingleFile(String path) {
-    throw "not implemented";
+    var file = File(path);
+    return parse(file.readAsStringSync())
+      ..path = file.path;
   }
 
   TestFile parse(String fileContent) {
@@ -24,7 +24,7 @@ class TestParser {
     return testFile;
   }
   
-  _parseNode(AstNode rootUnit, TestFile testFile, {TestMethod testMethod}) {
+  _parseNode(AstNode? rootUnit, TestFile testFile, {TestMethod? testMethod}) {
     if(rootUnit == null) {
       return;
     }
@@ -43,14 +43,21 @@ class TestParser {
     }
   }
 
-  List<TestFile> dirContents(Directory dir) {
+  List<TestFile> _dirContents(Directory dir) {
+    if(!dir.existsSync()) {
+      throw "Directory not exists";
+    }
     var contents = dir.listSync(recursive: true);
     List<TestFile> results = [];
     for (var fileOrDir in contents) {
       if (fileOrDir is File) {
-        results.add(TestFile(path: fileOrDir.path));
+        results.add(
+          parse(fileOrDir.readAsStringSync())
+            ..path = fileOrDir.path
+        );
       }
     }
     return results;
   }
+
 }
